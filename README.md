@@ -21,19 +21,19 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 Compress the mounted folder `/root` to `root.7z` :
 
 ```bash
-docker run --rm --workdir /data -it -v /root:/data crazy-max/7zip 7za a root.7z .
+docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7za a root.7z .
 ```
 
 Extract archive `root.7z` from the mounted folder `/root` :
 
 ```bash
-docker run --rm --workdir /data -it -v /root:/data crazy-max/7zip 7za x root.7z
+docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7za x root.7z
 ```
 
 Use tar if you want to preserve Unix ownership / permissions :
 
 ```bash
-docker run --rm --workdir /data -it -v /root:/data crazy-max/7zip sh -c 'tar cvf - * | 7za a -si root.tar.7z'
+docker run --rm --workdir /data -it -v /root:/data crazymax/7zip sh -c 'tar cvf - * | 7za a -si root.tar.7z'
 ```
 
 ## How can i help ?
