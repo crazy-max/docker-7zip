@@ -10,7 +10,5 @@
 .editorconfig
 .gitignore
 .travis.yml
-CHANGELOG.md
-docker-compose.yml
 LICENSE
 README.md
