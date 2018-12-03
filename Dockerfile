@@ -7,7 +7,7 @@ ARG VERSION
 LABEL maintainer="CrazyMax" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="7zip" \
-  org.label-schema.description="7-Zip image based on Alpine Linux" \
+  org.label-schema.description="7-Zip" \
   org.label-schema.version=$VERSION \
   org.label-schema.url="https://github.com/crazy-max/docker-7zip" \
   org.label-schema.vcs-ref=$VCS_REF \
