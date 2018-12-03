@@ -4,6 +4,8 @@ set -e
 PROJECT=7zip
 BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 BUILD_TAG=docker_build
+BUILD_WORKINGDIR=${BUILD_WORKINGDIR:-.}
+DOCKERFILE=${DOCKERFILE:-Dockerfile}
 VCS_REF=${TRAVIS_COMMIT::8}
 RUNNING_TIMEOUT=120
 RUNNING_LOG_CHECK="7-Zip (a)"
@@ -53,11 +55,11 @@ docker build \
   --build-arg BUILD_DATE=${BUILD_DATE} \
   --build-arg VCS_REF=${VCS_REF} \
   --build-arg VERSION=${VERSION} \
-  -t ${BUILD_TAG} .
+  -t ${BUILD_TAG} -f ${DOCKERFILE} ${BUILD_WORKINGDIR}
 echo
 
 echo "### Test"
-docker rm -f ${PROJECT} || true
+docker rm -f ${PROJECT} > /dev/null 2>&1 || true
 docker run -d --name ${PROJECT} ${BUILD_TAG}
 echo
 

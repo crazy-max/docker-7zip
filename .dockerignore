@@ -1,15 +1,12 @@
-.dev
+/.dev
+/.idea
+/*.iml
 
-# JetBrains
-.idea
-*.iml
-
-# Repo
-.git
-.res
-.editorconfig
-.gitignore
-.travis.yml
-build.sh
-LICENSE
-README.md
+/.git
+/.res
+/.editorconfig
+/.gitignore
+/.travis.yml
+/build.sh
+/LICENSE
+/README.md
