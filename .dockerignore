@@ -10,5 +10,6 @@
 .editorconfig
 .gitignore
 .travis.yml
+build.sh
 LICENSE
 README.md
