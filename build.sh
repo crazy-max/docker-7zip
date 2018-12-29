@@ -7,8 +7,6 @@ BUILD_TAG=docker_build
 BUILD_WORKINGDIR=${BUILD_WORKINGDIR:-.}
 DOCKERFILE=${DOCKERFILE:-Dockerfile}
 VCS_REF=${TRAVIS_COMMIT::8}
-RUNNING_TIMEOUT=120
-RUNNING_LOG_CHECK="7-Zip (a)"
 
 PUSH_LATEST=${PUSH_LATEST:-true}
 DOCKER_LOGIN=${DOCKER_LOGIN:-crazymax}
@@ -58,36 +56,6 @@ docker build \
   --build-arg VCS_REF=${VCS_REF} \
   --build-arg VERSION=${VERSION} \
   -t ${BUILD_TAG} -f ${DOCKERFILE} ${BUILD_WORKINGDIR}
-echo
-
-echo "### Test"
-docker rm -f ${PROJECT} > /dev/null 2>&1 || true
-docker run -d --name ${PROJECT} ${BUILD_TAG}
-echo
-
-echo "### Waiting for ${PROJECT} to be up..."
-TIMEOUT=$((SECONDS + RUNNING_TIMEOUT))
-while read LOGLINE; do
-  echo ${LOGLINE}
-  if [[ ${LOGLINE} == *"${RUNNING_LOG_CHECK}"* ]]; then
-    echo "Container up!"
-    break
-  fi
-  if [[ $SECONDS -gt ${TIMEOUT} ]]; then
-    >&2 echo "ERROR: Failed to run ${PROJECT} container"
-    docker rm -f ${PROJECT} > /dev/null 2>&1 || true
-    exit 1
-  fi
-done < <(docker logs -f ${PROJECT} 2>&1)
-echo
-
-CONTAINER_STATUS=$(docker container inspect --format "{{.State.Status}}" ${PROJECT})
-if [[ ${CONTAINER_STATUS} != "running" ]]; then
-  >&2 echo "ERROR: Container ${PROJECT} returned status '$CONTAINER_STATUS'"
-  docker rm -f ${PROJECT} > /dev/null 2>&1 || true
-  exit 1
-fi
-docker rm -f ${PROJECT} > /dev/null 2>&1 || true
 echo
 
 if [ "${VERSION}" == "local" -o "${TRAVIS_PULL_REQUEST}" == "true" ]; then
