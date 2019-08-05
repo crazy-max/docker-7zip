@@ -16,6 +16,8 @@
 This image is built **every week**.<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
 
+💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
+
 ## Usage
 
 Compress the mounted folder `/root` to `root.7z` :
