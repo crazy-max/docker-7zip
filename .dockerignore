@@ -3,10 +3,9 @@
 /*.iml
 
 /.git
+/.github
 /.res
 /.editorconfig
 /.gitignore
-/.travis.yml
-/build.sh
 /LICENSE
 /README.md
