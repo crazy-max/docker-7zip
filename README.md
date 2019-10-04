@@ -1,10 +1,9 @@
 <p align="center"><a href="https://github.com/crazy-max/docker-7zip" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-7zip/master/.res/docker-7zip.jpg"></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.com/crazy-max/docker-7zip"><img src="https://img.shields.io/travis/com/crazy-max/docker-7zip/master.svg?style=flat-square" alt="Build Status"></a>
+  <a href="https://github.com/crazy-max/docker-7zip/actions?workflow=build"><img src="https://github.com/crazy-max/docker-7zip/workflows/build/badge.svg" alt="Build Status"></a>
   <a href="https://hub.docker.com/r/crazymax/7zip/"><img src="https://img.shields.io/docker/stars/crazymax/7zip.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/7zip/"><img src="https://img.shields.io/docker/pulls/crazymax/7zip.svg?style=flat-square" alt="Docker Pulls"></a>
-  <a href="https://quay.io/repository/crazymax/7zip"><img src="https://quay.io/repository/crazymax/7zip/status?style=flat-square" alt="Docker Repository on Quay"></a>
   <a href="https://www.codacy.com/app/crazy-max/docker-7zip"><img src="https://img.shields.io/codacy/grade/221b1a2041514770af75a16d880148f9.svg?style=flat-square" alt="Code Quality"></a>
   <br /><a href="https://www.patreon.com/crazymax"><img src="https://img.shields.io/badge/donate-patreon-f96854.svg?logo=patreon&style=flat-square" alt="Support me on Patreon"></a>
   <a href="https://www.paypal.me/crazyws"><img src="https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal&style=flat-square" alt="Donate Paypal"></a>
@@ -13,10 +12,28 @@
 ## About
 
 🐳 [7-Zip](https://www.7-zip.org/) Docker image based on Alpine Linux.<br />
-This image is built **every week**.<br />
+This image is built **every day**.<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
+
+### Multi-platform image
+
+Following platforms for this image are available:
+
+```
+$ docker run --rm mplatform/mquery crazymax/7zip:latest
+Image: crazymax/7zip:latest
+ * Manifest List: Yes
+ * Supported platforms:
+   - linux/amd64
+   - linux/arm/v6
+   - linux/arm/v7
+   - linux/arm64
+   - linux/386
+   - linux/ppc64le
+   - linux/s390x
+```
 
 ## Usage
 
