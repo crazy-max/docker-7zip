@@ -1,59 +1,51 @@
 - # bot
   name: ":robot: bot"
-  color: 69cde9
+  color: "69cde9"
 - # bug
   name: ":bug: bug"
-  color: b60205
-  from_name: bug
+  color: "b60205"
 - # documentation
   name: ":memo: documentation"
-  color: c5def5
-  from_name: documentation
+  color: "c5def5"
 - # duplicate
   name: ":busts_in_silhouette: duplicate"
-  color: cccccc
-  from_name: duplicate
+  color: "cccccc"
 - # enhancement
   name: ":sparkles: enhancement"
-  color: 0054ca
-  from_name: enhancement
+  color: "0054ca"
 - # feature request
-  name: ":thought_balloon: feature request"
-  color: 0e8a16
+  name: ":bulb: feature request"
+  color: "0e8a16"
 - # feedback
   name: ":mega: feedback"
-  color: 00bcd4
+  color: "00bcd4"
 - # future maybe
   name: ":rocket: future maybe"
-  color: fef2c0
+  color: "fef2c0"
 - # good first issue
   name: ":hatching_chick: good first issue"
-  color: 7057ff
-  from_name: "good first issue"
+  color: "7057ff"
 - # help wanted
   name: ":pray: help wanted"
-  color: 4caf50
+  color: "4caf50"
 - # hold
   name: ":hand: hold"
-  color: 24292f
+  color: "24292f"
 - # invalid
   name: ":no_entry_sign: invalid"
-  color: e6e6e6
-  from_name: invalid
+  color: "e6e6e6"
 - # maybe bug
   name: ":interrobang: maybe bug"
-  color: d93f0b
-  from_name: 'help wanted'
+  color: "ff5722"
 - # needs more info
   name: ":thinking: needs more info"
-  color: 795548
+  color: "795548"
 - # question
   name: ":question: question"
-  color: 3f51b5
-  from_name: question
+  color: "3f51b5"
 - # upstream
-  name: ":coffin: upstream"
-  color: fbca04
+  name: ":eyes: upstream"
+  color: "fbca04"
 - # wontfix
   name: ":coffin: wontfix"
-  color: ffffff
+  color: "ffffff"
