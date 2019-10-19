@@ -1,0 +1,59 @@
+- # bot
+  name: ":robot: bot"
+  color: 69cde9
+- # bug
+  name: ":bug: bug"
+  color: b60205
+  from_name: bug
+- # documentation
+  name: ":memo: documentation"
+  color: c5def5
+  from_name: documentation
+- # duplicate
+  name: ":busts_in_silhouette: duplicate"
+  color: cccccc
+  from_name: duplicate
+- # enhancement
+  name: ":sparkles: enhancement"
+  color: 0054ca
+  from_name: enhancement
+- # feature request
+  name: ":thought_balloon: feature request"
+  color: 0e8a16
+- # feedback
+  name: ":mega: feedback"
+  color: 00bcd4
+- # future maybe
+  name: ":rocket: future maybe"
+  color: fef2c0
+- # good first issue
+  name: ":hatching_chick: good first issue"
+  color: 7057ff
+  from_name: "good first issue"
+- # help wanted
+  name: ":pray: help wanted"
+  color: 4caf50
+- # hold
+  name: ":hand: hold"
+  color: 24292f
+- # invalid
+  name: ":no_entry_sign: invalid"
+  color: e6e6e6
+  from_name: invalid
+- # maybe bug
+  name: ":interrobang: maybe bug"
+  color: d93f0b
+  from_name: 'help wanted'
+- # needs more info
+  name: ":thinking: needs more info"
+  color: 795548
+- # question
+  name: ":question: question"
+  color: 3f51b5
+  from_name: question
+- # upstream
+  name: ":coffin: upstream"
+  color: fbca04
+- # wontfix
+  name: ":coffin: wontfix"
+  color: ffffff
