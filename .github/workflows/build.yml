@@ -20,6 +20,7 @@ jobs:
           echo ::set-output name=docker_platforms::linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/ppc64le,linux/s390x
           echo ::set-output name=docker_username::crazymax
           echo ::set-output name=docker_image::crazymax/7zip
+          echo ::set-output name=version::latest
       -
         # https://github.com/crazy-max/ghaction-docker-buildx
         name: Set up Docker Buildx
@@ -35,9 +36,9 @@ jobs:
         run: |
           docker buildx build --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --output "type=image,push=false" \
-            --label "org.label-schema.build-date=${{ steps.prepare.outputs.build_date }}" \
-            --label "org.label-schema.version=latest" \
-            --label "org.label-schema.vcs-ref=${GITHUB_SHA::8}" \
+            --build-arg "BUILD_DATE=${{ steps.prepare.outputs.build_date }}" \
+            --build-arg "VCS_REF=${GITHUB_SHA::8}" \
+            --build-arg "VERSION=${{ steps.prepare.outputs.version }}" \
             --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
             --file Dockerfile .
       -
@@ -53,9 +54,9 @@ jobs:
         run: |
           docker buildx build --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --output "type=image,push=true" \
-            --label "org.label-schema.build-date=${{ steps.prepare.outputs.build_date }}" \
-            --label "org.label-schema.version=latest" \
-            --label "org.label-schema.vcs-ref=${GITHUB_SHA::8}" \
+            --build-arg "BUILD_DATE=${{ steps.prepare.outputs.build_date }}" \
+            --build-arg "VCS_REF=${GITHUB_SHA::8}" \
+            --build-arg "VERSION=${{ steps.prepare.outputs.version }}" \
             --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
             --file Dockerfile .
       -
