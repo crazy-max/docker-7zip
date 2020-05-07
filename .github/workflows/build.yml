@@ -5,14 +5,8 @@ on:
     - cron: '0 10 * * *' # everyday at 10am
   pull_request:
     branches: 'master'
-    paths:
-      - '.github/workflows/build.yml'
-      - 'Dockerfile'
   push:
     branches: 'master'
-    paths:
-      - '.github/workflows/build.yml'
-      - 'Dockerfile'
 
 jobs:
   build:
