@@ -22,11 +22,9 @@ jobs:
           echo ::set-output name=docker_image::crazymax/7zip
           echo ::set-output name=version::latest
       -
-        # https://github.com/crazy-max/ghaction-docker-buildx
         name: Set up Docker Buildx
         uses: crazy-max/ghaction-docker-buildx@v1
       -
-        # https://github.com/actions/checkout
         name: Checkout
         uses: actions/checkout@v2
       -
