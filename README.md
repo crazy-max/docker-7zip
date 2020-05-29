@@ -13,11 +13,18 @@
 
 🐳 [7-Zip](https://www.7-zip.org/) Docker image based on Alpine Linux.<br />
 This image is built **every day**.<br />
-If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
+If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other Docker images!
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
 
-### Multi-platform image
+___
+
+* [Multi-platform image](#multi-platform-image)
+* [Usage](#usage)
+* [How can I help?](#how-can-i-help)
+* [License](#license)
+
+## Multi-platform image
 
 Following platforms for this image are available:
 
@@ -55,7 +62,7 @@ Use tar if you want to preserve Unix ownership / permissions :
 docker run --rm --workdir /data -it -v /root:/data crazymax/7zip sh -c 'tar cvf - * | 7za a -si root.tar.7z'
 ```
 
-## How can I help ?
+## How can I help?
 
 All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon: You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
 
