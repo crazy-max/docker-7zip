@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - '**'
+      - '!dependabot/**'
     paths-ignore:
       - '**.md'
   pull_request:
