@@ -4,7 +4,6 @@
   <a href="https://github.com/crazy-max/docker-7zip/actions?workflow=build"><img src="https://img.shields.io/github/workflow/status/crazy-max/docker-7zip/build?label=build&logo=github&style=flat-square" alt="Build Status"></a>
   <a href="https://hub.docker.com/r/crazymax/7zip/"><img src="https://img.shields.io/docker/stars/crazymax/7zip.svg?style=flat-square&logo=docker" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/7zip/"><img src="https://img.shields.io/docker/pulls/crazymax/7zip.svg?style=flat-square&logo=docker" alt="Docker Pulls"></a>
-  <a href="https://github.com/users/crazy-max/packages/container/package/7zip"><img src="https://img.shields.io/badge/github-registry-blue?style=flat-square&logo=github" alt="GitHub Registry"></a>
   <br /><a href="https://github.com/sponsors/crazy-max"><img src="https://img.shields.io/badge/sponsor-crazy--max-181717.svg?logo=github&style=flat-square" alt="Become a sponsor"></a>
   <a href="https://www.paypal.me/crazyws"><img src="https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal&style=flat-square" alt="Donate Paypal"></a>
 </p>
@@ -26,8 +25,12 @@ ___
 
 ## Docker image
 
-Docker image is available on [Docker Hub](https://hub.docker.com/r/crazymax/7zip/) and [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/7zip)
-for the following platforms:
+| Registry                                                                                         | Image                           |
+|--------------------------------------------------------------------------------------------------|---------------------------------|
+| [Docker Hub](https://hub.docker.com/r/crazymax/7zip/)                                            | `crazymax/7zip`                 |
+| [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/7zip)  | `ghcr.io/crazy-max/7zip`        |
+
+Following platforms for this image are available:
 
 ```
 $ docker run --rm mplatform/mquery crazymax/7zip:latest
