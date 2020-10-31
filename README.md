@@ -18,14 +18,15 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ___
 
-* [Multi-platform image](#multi-platform-image)
+* [Docker image](#docker-image)
 * [Usage](#usage)
 * [How can I help?](#how-can-i-help)
 * [License](#license)
 
-## Multi-platform image
+## Docker image
 
-Following platforms for this image are available:
+Docker image is available on [Docker Hub](https://hub.docker.com/r/crazymax/7zip/) and [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/7zip)
+for the following platforms:
 
 ```
 $ docker run --rm mplatform/mquery crazymax/7zip:latest
