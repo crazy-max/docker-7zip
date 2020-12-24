@@ -33,6 +33,12 @@ jobs:
           images: |
             ${{ env.DOCKERHUB_SLUG }}
             ${{ env.GHCR_SLUG }}
+          tag-custom: latest
+          tag-custom-only: true
+          label-custom: |
+            org.opencontainers.image.title=7-Zip
+            org.opencontainers.image.description=File archiver with a high compression ratio
+            org.opencontainers.image.vendor=CrazyMax
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -40,7 +46,8 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
         with:
-          buildkitd-flags: "--debug"
+          version: latest
+          buildkitd-flags: --debug
       -
         name: Login to DockerHub
         if: github.event_name != 'pull_request'
@@ -58,20 +65,13 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
       -
         name: Build
-        uses: docker/build-push-action@v2
+        uses: crazy-max/ghaction-docker-buildx-bake@v1
         with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/ppc64le,linux/s390x
+          files: |
+            ./docker-bake.hcl
+            ${{ steps.docker_meta.outputs.bake-file }}
+          targets: image-all
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ env.DOCKERHUB_SLUG }}:latest
-            ${{ env.GHCR_SLUG }}:latest
-          labels: |
-            ${{ steps.docker_meta.outputs.labels }}
-            org.opencontainers.image.title=7-Zip
-            org.opencontainers.image.description=File archiver with a high compression ratio
-            org.opencontainers.image.vendor=CrazyMax
       -
         name: Check manifest
         if: github.event_name != 'pull_request' && (endsWith(github.ref, github.event.repository.default_branch) || startsWith(github.ref, 'refs/tags/'))
