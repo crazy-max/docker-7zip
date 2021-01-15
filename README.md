@@ -11,7 +11,6 @@
 ## About
 
 [7-Zip](https://www.7-zip.org/) Docker image based on Alpine Linux.<br />
-This image is built **every day**.<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other Docker images!
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
@@ -19,12 +18,26 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 ___
 
 * [Docker](#docker)
+  * [Build locally](#build-locally)
   * [Image](#image)
 * [Usage](#usage)
 * [How can I help?](#how-can-i-help)
 * [License](#license)
 
 ## Docker
+
+### Build locally
+
+```shell
+git clone https://github.com/crazy-max/docker-7zip.git
+cd docker-7zip
+
+# Build image and output to docker (default)
+docker buildx bake
+
+# Build multi-platform image
+docker buildx bake image-all
+```
 
 ### Image
 

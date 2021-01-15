@@ -1,10 +1,10 @@
-variable "slug" {
-  default = "crazymax/7zip"
+variable "DEFAULT_TAG" {
+  default = "7zip:local"
 }
 
 // Special target: https://github.com/crazy-max/ghaction-docker-meta#bake-definition
 target "ghaction-docker-meta" {
-  tags = ["${slug}:local"]
+  tags = ["${DEFAULT_TAG}"]
 }
 
 // Default target if none specified
@@ -23,5 +23,13 @@ target "image-local" {
 
 target "image-all" {
   inherits = ["image"]
-  platforms = ["linux/amd64", "linux/arm/v6", "linux/arm/v7", "linux/arm64", "linux/386", "linux/ppc64le", "linux/s390x"]
+  platforms = [
+    "linux/amd64",
+    "linux/arm/v6",
+    "linux/arm/v7",
+    "linux/arm64",
+    "linux/386",
+    "linux/ppc64le",
+    "linux/s390x"
+  ]
 }
