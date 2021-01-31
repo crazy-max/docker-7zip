@@ -18,16 +18,13 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ___
 
-* [Docker](#docker)
-  * [Build locally](#build-locally)
-  * [Image](#image)
+* [Build locally](#build-locally)
+* [Image](#image)
 * [Usage](#usage)
 * [How can I help?](#how-can-i-help)
 * [License](#license)
 
-## Docker
-
-### Build locally
+## Build locally
 
 ```shell
 git clone https://github.com/crazy-max/docker-7zip.git
@@ -40,7 +37,7 @@ docker buildx bake
 docker buildx bake image-all
 ```
 
-### Image
+## Image
 
 | Registry                                                                                         | Image                           |
 |--------------------------------------------------------------------------------------------------|---------------------------------|
