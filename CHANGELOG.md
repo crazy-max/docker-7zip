@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.02-r2 (2021/08/01)
+
+* Alpine Linux 3.14
+
 ## 16.02-r1 (2021/03/28)
 
 * Upstream Alpine update
