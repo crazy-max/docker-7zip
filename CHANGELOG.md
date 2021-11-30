@@ -1,5 +1,10 @@
 # Changelog
 
+## 16.02-r3 (2021/11/30)
+
+* p7zip 16.02-r4
+* Alpine Linux 3.15
+
 ## 16.02-r2 (2021/08/01)
 
 * Alpine Linux 3.14
