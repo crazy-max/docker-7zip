@@ -10,13 +10,9 @@ on:
       - 'master'
     tags:
       - '*'
-    paths-ignore:
-      - '**.md'
   pull_request:
     branches:
       - 'master'
-    paths-ignore:
-      - '**.md'
 
 env:
   DOCKERHUB_SLUG: crazymax/7zip
