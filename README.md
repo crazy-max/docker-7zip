@@ -11,7 +11,7 @@
 
 ## About
 
-[7-Zip](https://www.7-zip.org/) Docker image based on Alpine Linux.<br />
+[7-Zip](https://www.7-zip.org/) Docker image built from sources.<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other Docker images!
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
@@ -51,11 +51,11 @@ $ docker run --rm mplatform/mquery crazymax/7zip:latest
 Image: crazymax/7zip:latest
  * Manifest List: Yes
  * Supported platforms:
+   - linux/386
    - linux/amd64
    - linux/arm/v6
    - linux/arm/v7
    - linux/arm64
-   - linux/386
    - linux/ppc64le
    - linux/s390x
 ```
