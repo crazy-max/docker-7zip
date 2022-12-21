@@ -11,10 +11,12 @@
 
 ## About
 
-[7-Zip](https://www.7-zip.org/) Docker image built from sources.<br />
-If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other Docker images!
+Docker image for [7-Zip](https://www.7-zip.org/) built from sources.
 
-💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
+> **Note**
+> 
+> Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun)
+> project!
 
 ___
 
