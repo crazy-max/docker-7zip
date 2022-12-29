@@ -25,10 +25,14 @@ RUN cmake -Wno-dev -G Ninja -B build $(xx-clang --print-cmake-defines) \
     -DCMAKE_EXE_LINKER_FLAGS="-static" \
   && cmake --build build \
   && cmake --install build
-RUN mkdir -p /out \
-  && mv ./build/bin/7z_ /out/7z \
-  && mv ./build/bin/7za /out/ \
-  && mv ./build/bin/7zr /out/
+RUN <<EOT
+  set -e
+  mkdir -p /out
+  mv ./build/bin/7za /out/
+  mv ./build/bin/7zr /out/
+  cd /out
+  ln -s 7za 7z
+EOT
 
 FROM alpine:${ALPINE_VERSION} AS smoke
 COPY --from=builder /out /usr/local/bin/
