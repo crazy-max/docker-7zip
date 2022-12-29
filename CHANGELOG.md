@@ -1,6 +1,11 @@
 # Changelog
 
-## 17.04-r0 (2021/11/30)
+## 17.04-r1 (2021/11/30)
+
+* Create symlink for `7z` (#35)
+* Alpine Linux 3.17 (#33)
+
+## 17.04-r0 (2022/06/17)
 
 * p7zip 17.04
 * Alpine Linux 3.16
