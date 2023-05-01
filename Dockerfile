@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG P7ZIP_VERSION=17.04
+ARG P7ZIP_VERSION=17.05
 ARG ALPINE_VERSION=3.17
 ARG XX_VERSION=1.1.2
 
@@ -10,7 +10,7 @@ COPY --from=xx / /
 RUN apk --update --no-cache add clang cmake curl file make ninja pkgconf tar tree xz
 ARG P7ZIP_VERSION
 WORKDIR /src
-RUN curl -sSL "https://github.com/jinfeihan57/p7zip/archive/v${P7ZIP_VERSION}/p7zip-v${P7ZIP_VERSION}.tar.gz" | tar xz --strip 1
+RUN curl -sSL "https://github.com/p7zip-project/p7zip/archive/v${P7ZIP_VERSION}/p7zip-v${P7ZIP_VERSION}.tar.gz" | tar xz --strip 1
 
 FROM base AS builder
 ENV XX_CC_PREFER_LINKER=ld
