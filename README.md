@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/crazy-max/docker-7zip" target="_blank"><img height="128" src="https://raw.githubusercontent.com/crazy-max/docker-7zip/master/.res/docker-7zip.jpg"></a></p>
+<p align="center"><a href="https://github.com/crazy-max/docker-7zip" target="_blank"><img height="128" src="https://raw.githubusercontent.com/crazy-max/docker-7zip/master/.github/docker-7zip.jpg"></a></p>
 
 <p align="center">
   <a href="https://hub.docker.com/r/crazymax/7zip/tags?page=1&ordering=last_updated"><img src="https://img.shields.io/github/v/tag/crazy-max/docker-7zip?label=version&style=flat-square" alt="Latest Version"></a>
