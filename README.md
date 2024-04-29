@@ -13,8 +13,7 @@
 
 Docker image for [7-Zip](https://www.7-zip.org/) built from sources.
 
-> **Note**
-> 
+> [!TIP] 
 > Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun)
 > project!
 
