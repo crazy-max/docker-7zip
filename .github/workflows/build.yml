@@ -18,76 +18,41 @@ on:
     branches:
       - 'master'
 
-env:
-  DOCKERHUB_SLUG: crazymax/7zip
-  GHCR_SLUG: ghcr.io/crazy-max/7zip
-
 jobs:
   build:
-    runs-on: ubuntu-latest
+    uses: crazy-max/.github/.github/workflows/bake-distribute-mp.yml@0acc187b016a2946786f201397bbcfb2c530ffc7
     permissions:
       # same as global permissions
       contents: read
       # required to push to GHCR
       packages: write
-    steps:
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ${{ env.DOCKERHUB_SLUG }}
-            ${{ env.GHCR_SLUG }}
-          tags: |
-            type=match,pattern=(.*)-r,group=1
-            type=ref,event=pr
-            type=edge
-          labels: |
-            org.opencontainers.image.title=7-Zip
-            org.opencontainers.image.description=File archiver with a high compression ratio
-            org.opencontainers.image.vendor=CrazyMax
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to DockerHub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      -
-        name: Login to GHCR
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Build
-        uses: docker/bake-action@v6
-        with:
-          files: |
-            ./docker-bake.hcl
-            cwd://${{ steps.meta.outputs.bake-file }}
-          targets: image-all
-          push: ${{ github.event_name != 'pull_request' }}
-      -
-        name: Check manifest
-        if: github.event_name != 'pull_request'
-        run: |
-          docker buildx imagetools inspect ${{ env.DOCKERHUB_SLUG }}:${{ steps.meta.outputs.version }}
-          docker buildx imagetools inspect ${{ env.GHCR_SLUG }}:${{ steps.meta.outputs.version }}
-      -
-        name: Inspect image
-        if: github.event_name != 'pull_request'
-        run: |
-          docker pull ${{ env.DOCKERHUB_SLUG }}:${{ steps.meta.outputs.version }}
-          docker image inspect ${{ env.DOCKERHUB_SLUG }}:${{ steps.meta.outputs.version }}
-          docker pull ${{ env.GHCR_SLUG }}:${{ steps.meta.outputs.version }}
-          docker image inspect ${{ env.GHCR_SLUG }}:${{ steps.meta.outputs.version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          -
+            image: crazymax/7zip
+            login-registry: docker.io
+            login-username: crazymax
+            login-secret-key: DOCKER_PASSWORD
+          -
+            image: ghcr.io/crazy-max/7zip
+            login-registry: ghcr.io
+            login-username: ${{ github.repository_owner }}
+            login-secret-key: GITHUB_TOKEN
+    with:
+      target: image-all
+      push: ${{ github.event_name != 'pull_request' }}
+      meta-image: ${{ matrix.image }}
+      meta-tags: |
+        type=match,pattern=(.*)-r,group=1
+        type=ref,event=pr
+        type=edge
+      meta-labels: |
+        org.opencontainers.image.title=7-Zip
+        org.opencontainers.image.description=File archiver with a high compression ratio
+        org.opencontainers.image.vendor=CrazyMax
+      login-registry: ${{ matrix.login-registry }}
+      login-username: ${{ matrix.login-username }}
+    secrets:
+      login-password: ${{ secrets[matrix.login-secret-key] }}
