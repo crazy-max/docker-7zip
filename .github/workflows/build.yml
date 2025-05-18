@@ -43,6 +43,7 @@ jobs:
     with:
       target: image-all
       push: ${{ github.event_name != 'pull_request' }}
+      set-meta-labels: true
       meta-image: ${{ matrix.image }}
       meta-tags: |
         type=match,pattern=(.*)-r,group=1
