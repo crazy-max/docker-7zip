@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 
 ARG P7ZIP_VERSION=17.06
-ARG ALPINE_VERSION=3.22
-ARG XX_VERSION=1.6.1
+ARG ALPINE_VERSION=3.23
+ARG XX_VERSION=1.9.0
 
 FROM --platform=$BUILDPLATFORM tonistiigi/xx:${XX_VERSION} AS xx
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS base
@@ -19,6 +19,7 @@ RUN xx-apk --no-cache --no-scripts add gcc g++ nasm yasm
 
 WORKDIR /src/CPP/7zip/CMAKE
 RUN cmake -Wno-dev -G Ninja -B build $(xx-clang --print-cmake-defines) \
+    -DCMAKE_POLICY_VERSION_MINIMUM="3.5" \
     -DCMAKE_CXX_FLAGS="-w -s" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DCMAKE_INSTALL_PREFIX="$(xx-info sysroot)usr/local" \
