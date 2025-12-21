@@ -15,36 +15,23 @@ on:
     tags:
       - '*'
   pull_request:
-    branches:
-      - 'master'
 
 jobs:
   build:
-    uses: crazy-max/.github/.github/workflows/bake-distribute-mp.yml@0acc187b016a2946786f201397bbcfb2c530ffc7
+    uses: docker/github-builder-experimental/.github/workflows/bake.yml@af87571fd3347a8a760e6053efba57325c00b74b
     permissions:
-      # same as global permissions
-      contents: read
-      # required to push to GHCR
-      packages: write
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          -
-            image: crazymax/7zip
-            login-registry: docker.io
-            login-username: crazymax
-            login-secret-key: DOCKER_PASSWORD
-          -
-            image: ghcr.io/crazy-max/7zip
-            login-registry: ghcr.io
-            login-username: ${{ github.repository_owner }}
-            login-secret-key: GITHUB_TOKEN
+      contents: read # same as global permissions
+      id-token: write # for signing attestation(s) with GitHub OIDC Token
+      packages: write # required to push to GHCR
     with:
+      setup-qemu: true
       target: image-all
+      output: image
       push: ${{ github.event_name != 'pull_request' }}
       set-meta-labels: true
-      meta-image: ${{ matrix.image }}
+      meta-images: |
+        crazymax/7zip
+        ghcr.io/crazy-max/7zip
       meta-tags: |
         type=match,pattern=(.*)-r,group=1
         type=ref,event=pr
@@ -53,7 +40,11 @@ jobs:
         org.opencontainers.image.title=7-Zip
         org.opencontainers.image.description=File archiver with a high compression ratio
         org.opencontainers.image.vendor=CrazyMax
-      login-registry: ${{ matrix.login-registry }}
-      login-username: ${{ matrix.login-username }}
     secrets:
-      login-password: ${{ secrets[matrix.login-secret-key] }}
+      registry-auths: |
+        - registry: docker.io
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        - registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}

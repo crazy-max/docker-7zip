@@ -15,8 +15,30 @@ on:
   pull_request:
 
 jobs:
-  smoke:
+  prepare-smoke:
     runs-on: ubuntu-latest
+    outputs:
+      includes: ${{ steps.smoke.outputs.matrix }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v6
+      -
+        name: Smoke test matrix
+        id: smoke
+        uses: docker/bake-action/subaction/matrix@v6
+        with:
+          target: smoke-test
+          fields: platforms
+
+  smoke:
+    runs-on: ${{ startsWith(matrix.platforms, 'linux/arm') && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
+    needs:
+      - prepare-smoke
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.prepare-smoke.outputs.includes) }}
     steps:
       -
         name: Set up QEMU
@@ -29,3 +51,5 @@ jobs:
         uses: docker/bake-action@v6
         with:
           targets: smoke-test
+          set: |
+            *.platform=${{ matrix.platforms }}
