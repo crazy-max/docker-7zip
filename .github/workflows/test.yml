@@ -26,7 +26,7 @@ jobs:
       -
         name: Smoke test matrix
         id: smoke
-        uses: docker/bake-action/subaction/matrix@v6
+        uses: docker/bake-action/subaction/matrix@v7
         with:
           target: smoke-test
           fields: platforms
@@ -48,7 +48,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       -
         name: Test
-        uses: docker/bake-action@v6
+        uses: docker/bake-action@v7
         with:
           targets: smoke-test
           set: |
