@@ -1,0 +1,113 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigestsToSemver",
+    "helpers:githubDigestChangelogs"
+  ],
+  "enabledManagers": [
+    "github-actions",
+    "dockerfile",
+    "custom.regex"
+  ],
+  "prHourlyLimit": 0,
+  "minimumReleaseAge": "2 days",
+  "internalChecksFilter": "strict",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "commitMessageSuffix": ""
+  },
+  "labels": ["kind/dependencies", "bot"],
+  "semanticCommits": "disabled",
+  "commitMessagePrefix": "deps{{#if isVulnerabilityAlert}}(security){{/if}}:",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": [
+        "ARG ALPINE_VERSION=(?<currentValue>\\d+\\.\\d+)",
+        "# renovate: datasource=(?<datasource>custom\\.aports-patch) depName=(?<depName>\\S+)\\r?\\nARG SEVENZIP_MUSL_PATCH_COMMIT=(?<currentDigest>[a-f0-9]{40}\\r?\\nARG SEVENZIP_MUSL_PATCH_SHA256=[a-f0-9]{64})"
+      ],
+      "matchStringsStrategy": "combination",
+      "registryUrlTemplate": "https://gitlab.alpinelinux.org/api/v4/projects/alpine%2Faports/repository/files/main%2F7zip%2F{{depName}}?ref={{currentValue}}-stable",
+      "versioningTemplate": "exact"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\r?\\nARG SEVENZIP_VERSION=(?<currentValue>\\d+\\.\\d+)\\r?\\nARG SEVENZIP_VERSION_NUM=\\d+\\r?\\nARG SEVENZIP_SHA256=(?<currentDigest>[a-f0-9]{64})"
+      ],
+      "versioningTemplate": "loose",
+      // Keep both version formats and the source archive checksum together.
+      "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}\nARG SEVENZIP_VERSION={{{newValue}}}\nARG SEVENZIP_VERSION_NUM={{{replace '\\.' '' newValue}}}\nARG SEVENZIP_SHA256={{{newDigest}}}"
+    },
+    {
+      // The Actions manager does not extract runners inside expressions.
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/workflows/.*\\.ya?ml$/"],
+      "matchStrings": [
+        "'(?<depName>ubuntu|macos|windows)-(?<currentValue>[0-9][a-zA-Z0-9.-]*)'"
+      ],
+      "datasourceTemplate": "github-runners",
+      "versioningTemplate": "docker"
+    }
+  ],
+  "customDatasources": {
+    "aports-patch": {
+      "transformTemplates": [
+        // Match the two Dockerfile pins as one replacement.
+        "{ 'releases': [$[$match(last_commit_id, /^[a-f0-9]{40}$/) and $match(content_sha256, /^[a-f0-9]{64}$/)].{\
+          'version': $substringBefore(ref, '-stable'),\
+          'digest': last_commit_id & '\\nARG SEVENZIP_MUSL_PATCH_SHA256=' & content_sha256\
+        }] }"
+      ]
+    },
+    "sevenzip": {
+      "defaultRegistryUrlTemplate": "https://api.github.com/repos/{{packageName}}/releases?per_page=100",
+      "transformTemplates": [
+        // Ignore prereleases and archives without a published SHA256.
+        "{\
+          'releases': [$map(\
+            $[draft = false and prerelease = false and $match(tag_name, /^[0-9]+\\.[0-9]+$/)],\
+            function($r) { (\
+              $asset := $r.assets[\
+                name = '7z' & $replace($r.tag_name, '.', '') & '-src.tar.xz' and\
+                $match($string(digest), /^sha256:[a-f0-9]{64}$/)\
+              ];\
+              $exists($asset) ? {\
+                'version': $r.tag_name,\
+                'digest': $substringAfter($asset.digest, 'sha256:'),\
+                'releaseTimestamp': $r.published_at,\
+                'changelogUrl': $r.html_url\
+              }\
+            ) }\
+          )],\
+          'sourceUrl': 'https://github.com/ip7z/7zip',\
+          'homepage': 'https://www.7-zip.org/'\
+        }"
+      ]
+    }
+  },
+  "packageRules": [
+    {
+      // Alpine's file API publishes the checksum without a release timestamp.
+      "matchDatasources": ["custom.aports-patch"],
+      "minimumReleaseAge": null
+    },
+    {
+      "matchFileNames": ["Dockerfile"],
+      "commitMessagePrefix": "deps(dockerfile{{#if isVulnerabilityAlert}},security{{/if}}):"
+    },
+    {
+      "matchFileNames": [".github/workflows/**"],
+      "commitMessagePrefix": "deps(ci{{#if isVulnerabilityAlert}},security{{/if}}):"
+    },
+    {
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "commitMessageAction": "bump",
+      "commitMessageTopic": "{{{depName}}}",
+      "commitMessageExtra": "from {{{replace '^v' '' currentValue}}} to {{{replace '^v' '' newValue}}}"
+    }
+  ]
+}
