@@ -11,7 +11,9 @@
 
 ## About
 
-Docker image for [7-Zip](https://www.7-zip.org/) built from sources.
+Docker image for [7-Zip](https://www.7-zip.org/) built from source. It includes
+upstream `7zz` as the default command, `7z` as its alias, and the `7za` and
+`7zr` compatibility binaries.
 
 > [!TIP] 
 > Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun)
@@ -36,6 +38,9 @@ docker buildx bake
 
 # Build multi-platform image
 docker buildx bake image-all
+
+# Test archive creation and extraction on all supported platforms
+docker buildx bake smoke-test
 ```
 
 ## Image
@@ -65,19 +70,19 @@ linux/s390x
 Compress the mounted folder `/root` to `root.7z` :
 
 ```bash
-docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7za a root.7z .
+docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7zz a root.7z .
 ```
 
 Extract archive `root.7z` from the mounted folder `/root` :
 
 ```bash
-docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7za x root.7z
+docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7zz x root.7z
 ```
 
 Use tar if you want to preserve Unix ownership / permissions :
 
 ```bash
-docker run --rm --workdir /data -it -v /root:/data crazymax/7zip sh -c 'tar cvf - * | 7za a -si root.tar.7z'
+docker run --rm --workdir /data -it -v /root:/data crazymax/7zip sh -c 'tar cvf - * | 7zz a -si root.tar.7z'
 ```
 
 ## Contributing
