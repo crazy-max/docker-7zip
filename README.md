@@ -79,6 +79,14 @@ Extract archive `root.7z` from the mounted folder `/root` :
 docker run --rm --workdir /data -it -v /root:/data crazymax/7zip 7zz x root.7z
 ```
 
+To stream a file from an archive to stdout, use `-so`. Even when you pipe or
+redirect the output on the host, Docker can log the entire extracted file.
+Use `--log-driver none` to disable container logging for that run.
+
+```bash
+docker run --rm --log-driver none --workdir /data -v "$PWD:/data" crazymax/7zip 7zz e -so heavy.7z payload.bin > extracted.bin
+```
+
 Use tar if you want to preserve Unix ownership / permissions :
 
 ```bash
